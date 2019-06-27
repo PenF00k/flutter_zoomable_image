@@ -58,24 +58,24 @@ class _ZoomableImageState extends State<ZoomableImage> {
   Size _canvasSize;
 
   void _centerAndScaleImage() {
-    _imageSize = new Size(
-      _image.width.toDouble(),
-      _image.height.toDouble(),
-    );
-
-    _scale = math.min(
-      _canvasSize.width / _imageSize.width,
-      _canvasSize.height / _imageSize.height,
-    );
-    Size fitted = new Size(
-      _imageSize.width * _scale,
-      _imageSize.height * _scale,
-    );
-
-    Offset delta = _canvasSize - fitted;
-    _offset = delta / 2.0; // Centers the image
-
-    print(_scale);
+//    _imageSize = new Size(
+//      _image.width.toDouble(),
+//      _image.height.toDouble(),
+//    );
+//
+//    _scale = math.min(
+//      _canvasSize.width / _imageSize.width,
+//      _canvasSize.height / _imageSize.height,
+//    );
+//    Size fitted = new Size(
+//      _imageSize.width * _scale,
+//      _imageSize.height * _scale,
+//    );
+//
+//    Offset delta = _canvasSize - fitted;
+//    _offset = delta / 2.0; // Centers the image
+//
+//    print(_scale);
   }
 
   Function() _handleDoubleTap(BuildContext ctx) {
