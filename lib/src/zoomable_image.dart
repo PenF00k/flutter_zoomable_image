@@ -16,6 +16,7 @@ class ZoomableImage extends StatefulWidget {
   final GestureTapCallback onTap;
   final Color backgroundColor;
   final Widget placeholder;
+  final BoxFit fit;
 
   ZoomableImage(
     this.image, {
@@ -31,6 +32,7 @@ class ZoomableImage extends StatefulWidget {
 
     /// Placeholder widget to be used while [image] is being resolved.
     this.placeholder,
+    this.fit,
   }) : super(key: key);
 
   @override
@@ -112,8 +114,7 @@ class _ZoomableImageState extends State<ZoomableImage> {
     }
 
     // Ensure that item under the focal point stays in the same place despite zooming
-    final Offset normalizedOffset =
-        (_startingFocalPoint - _previousOffset) / _previousScale;
+    final Offset normalizedOffset = (_startingFocalPoint - _previousOffset) / _previousScale;
     final Offset newOffset = d.focalPoint - normalizedOffset * newScale;
 
     setState(() {
@@ -131,6 +132,7 @@ class _ZoomableImageState extends State<ZoomableImage> {
           image: _image,
           offset: _offset,
           scale: _scale,
+          fit: widget.fit,
         ),
       );
     }
@@ -189,11 +191,12 @@ class _ZoomableImageState extends State<ZoomableImage> {
 }
 
 class _ZoomableImagePainter extends CustomPainter {
-  const _ZoomableImagePainter({this.image, this.offset, this.scale});
+  const _ZoomableImagePainter({this.image, this.offset, this.scale, this.fit});
 
   final ui.Image image;
   final Offset offset;
   final double scale;
+  final BoxFit fit;
 
   @override
   void paint(Canvas canvas, Size canvasSize) {
@@ -204,12 +207,12 @@ class _ZoomableImagePainter extends CustomPainter {
       canvas: canvas,
       rect: offset & targetSize,
       image: image,
-      fit: BoxFit.fill,
+      fit: fit,
     );
   }
 
   @override
   bool shouldRepaint(_ZoomableImagePainter old) {
-    return old.image != image || old.offset != offset || old.scale != scale;
+    return old.image != image || old.offset != offset || old.scale != scale || old.fit != fit;
   }
 }
